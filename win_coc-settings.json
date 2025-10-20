@@ -1,0 +1,125 @@
+{
+  // ===========================
+  // 通用 coc.nvim 设置
+  // ===========================
+  "suggest.autoTrigger": "always",
+  "suggest.minTriggerInputLength": 1,
+  "suggest.enableFloat": true,
+  "suggest.detailField": "preview",
+  "suggest.insertMode": "replace",
+  "suggest.filterGraceful": true,
+  "suggest.localityBonus": true,
+  "suggest.removeDuplicateItems": true,
+  "suggest.removeCurrentWord": true,
+  "suggest.maxCompleteItemCount": 200,
+  "suggest.virtualText": false,
+  "suggest.noselect": false,
+  "suggest.formatItems": ["abbr", "menu", "kind"],
+  "suggest.enablePreselect": true, // 自动预选第一个候选项
+  // 启用诊断功能
+  "diagnostic.enable": true,
+
+  // 在符号栏显示错误标志
+  "diagnostic.enableSign": true,
+
+  // 自定义标志字符
+  "diagnostic.errorSign": "✘",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+
+  // 虚拟文本（显示在行尾）
+  "diagnostic.virtualText": true, // 启用
+  "diagnostic.virtualTextCurrentLineOnly": false, // 所有行都显示
+  "diagnostic.virtualTextFormat": "[%severity] %message",
+  "diagnostic.virtualTextPrefix": "» ",
+
+  // 弹窗配置（鼠标或光标悬停时）
+  "diagnostic.messageTarget": "float",
+  "diagnostic.floatConfig": {
+    "border": true,
+    "maxWidth": 80
+  },
+
+  // 高亮与行号提示
+  "diagnostic.enableHighlightLineNumber": true,
+
+  // 延迟显示诊断消息（毫秒）
+  "diagnostic.messageDelay": 300,
+
+  // 在插入模式下是否刷新诊断
+  "diagnostic.refreshOnInsertMode": false,
+
+  // 限制高亮数量防止卡顿
+  "diagnostic.highlightLimit": 500,
+
+  // 显示未使用变量提示
+  "diagnostic.showUnused": true,
+
+  // 显示弃用警告
+  "diagnostic.showDeprecated": true,
+
+  // 显示相关信息（例如定义位置）
+  "diagnostic.showRelatedInformation": true,
+
+  "coc.preferences.formatOnSave": false,
+  "[python]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "[javascript]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "[html]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "[css]": {
+    "coc.preferences.formatOnSave": true
+  },
+
+  // ===========================
+  // Python 设置 (coc-pyright)
+  // ===========================
+  "python.pythonPath": "D:\\Software\\miniconda3\\envs\\py311\\python.exe",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.useLibraryCodeForTypes": true,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "88"],
+  "python.linting.mypyEnabled": true, // 类型检查
+
+  // ===========================
+  // Prettier 前端格式化
+  // ===========================
+  "prettier.enable": true,
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "prettier.tabWidth": 2,
+  "prettier.printWidth": 80,
+  "prettier.trailingComma": "es5",
+
+  // ===========================
+  // HTML / CSS / JSON / TS/JS
+  // ===========================
+  "css.validate": true,
+  "scss.validate": true,
+  "less.validate": true,
+  "html.format.enable": true,
+  "html.validate.scripts": true,
+  "html.validate.styles": true,
+  "json.format.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["package.json"],
+      "url": "https://json.schemastore.org/package.json"
+    },
+    {
+      "fileMatch": ["tsconfig.json", "tsconfig.*.json"],
+      "url": "https://json.schemastore.org/tsconfig.json"
+    }
+  ],
+  "typescript.validate.enable": true,
+  "javascript.validate.enable": true
+}
