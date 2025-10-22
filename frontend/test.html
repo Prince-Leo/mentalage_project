@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>心理年龄测试 - MentalAge</title>
+    <style>
+      :root {
+        --theme-color: #2463ff;
+        --bg-gradient: linear-gradient(135deg, #2463ff 0%, #5b8cff 100%);
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', 'Microsoft Yahei', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #f6f8ff;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      header {
+        background: var(--bg-gradient);
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.3rem;
+      }
+
+      header p {
+        opacity: 0.9;
+        font-size: 1rem;
+      }
+
+      main {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+      }
+
+      .intro {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .intro h2 {
+        color: var(--theme-color);
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .question-card {
+        background: #f9fbff;
+        border: 1px solid #e0e6ff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        transition: 0.3s ease;
+      }
+
+      .question-card:hover {
+        box-shadow: 0 4px 10px rgba(36, 99, 255, 0.15);
+        transform: translateY(-2px);
+      }
+
+      .question {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .options label {
+        display: block;
+        background: white;
+        border: 1px solid #dce3ff;
+        padding: 0.7rem 1rem;
+        border-radius: 8px;
+        margin: 0.4rem 0;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .options label:hover {
+        border-color: var(--theme-color);
+        background: #f0f4ff;
+      }
+
+      input[type='radio'] {
+        margin-right: 10px;
+        accent-color: var(--theme-color);
+      }
+
+      .btn-area {
+        text-align: center;
+        margin-top: 1.5rem;
+      }
+
+      button {
+        background: var(--theme-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 3px 10px rgba(36, 99, 255, 0.2);
+      }
+
+      button:hover {
+        background: #1747cc;
+      }
+
+      .result-box {
+        margin-top: 2rem;
+        background: #eef3ff;
+        border-radius: 10px;
+        padding: 1rem;
+        display: none;
+        text-align: center;
+        border: 1px solid #d5deff;
+      }
+
+      .result-box h3 {
+        color: var(--theme-color);
+        margin-bottom: 0.5rem;
+      }
+
+      footer {
+        text-align: center;
+        color: #666;
+        font-size: 0.9rem;
+        margin: 2rem 0 1rem;
+      }
+
+      footer a {
+        color: var(--theme-color);
+        text-decoration: none;
+      }
+      /* 🔽 新增：移动端自适应样式 */
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 1.6rem; /* 手机端标题变小 */
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+        header p {
+          font-size: 0.9rem;
+        }
+        .intro h2 {
+          font-size: 1.2rem;
+        }
+        main {
+          padding: 1.2rem;
+        }
+        button {
+          padding: 0.7rem 1.5rem;
+          font-size: 0.9rem;
+        }
+        .question {
+          font-size: 1rem;
+        }
+        .options label {
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>MentalAge 心理年龄测试</h1>
+      <p>探索你内心的真实年龄 ✦ 了解自己的另一面</p>
+    </header>
+
+    <main>
+      <div class="intro">
+        <h2>欢迎参加心理年龄测试</h2>
+        <p>共 30 道题，请根据真实想法作答，选择最贴近你想法的答案。</p>
+      </div>
+
+      <div id="questionContainer"></div>
+
+      <div class="btn-area">
+        <button onclick="submitTest()">提交测试</button>
+      </div>
+
+      <div class="result-box" id="resultBox">
+        <h3>测试结果</h3>
+        <p id="resultText">（此处稍后填写结果展示逻辑）</p>
+      </div>
+    </main>
+
+    <footer>© 2025 MentalAge 心理年龄测试</footer>
+
+    <script>
+      const questions = [
+        '想赶快变成老爷爷（老奶奶）',
+        '在意服装、发型',
+        '觉得有完结的人生才有意思',
+        '人生至今遇过许多挫折',
+        '一个人早上起不来',
+        '只要有不称心的事马上就会生气',
+        '喜欢起哄',
+        '知道‘色即是空’的意思',
+        '不知道最近年轻人流行什么',
+        '用报纸打蟑螂是家常便饭',
+        '比起都市，觉得住乡下比较符合自己的个性',
+        '能读书，可是不想读',
+        '不能想困难的事',
+        '常浪费',
+        '经常给自己加油',
+        '比起同年的朋友，和年长的朋友较合得来',
+        '人生计划已很完美',
+        '偶尔会被人说有中年人的味道',
+        '常被人耍',
+        '旅行或什么大事的前一晚会睡不着',
+        '会突然唱起歌来',
+        '很能忍耐',
+        '常会什么都不想就行动',
+        '会把一天当很多天用',
+        '情感波动激烈',
+        '有‘这是我的底线，绝对不能让步’的想法',
+        '没办法一个人住',
+        '常哭',
+        '有梦想',
+        '比起旅行，比较喜欢待在家里',
+      ]
+
+      const options = [
+        { label: 'A', text: '不是', val: 1 },
+        { label: 'B', text: '不确定', val: 2 },
+        { label: 'C', text: '是', val: 3 },
+      ]
+
+      const container = document.getElementById('questionContainer')
+
+      questions.forEach((q, i) => {
+        const div = document.createElement('div')
+        div.className = 'question-card'
+        div.innerHTML = `
+        <div class="question">${i + 1}. ${q}</div>
+        <div class="options">
+          ${options
+            .map(
+              (opt) => `
+            <label>
+              <input type="radio" name="q${i}" value="${opt.val}"> ${opt.label}. ${opt.text}
+            </label>
+          `
+            )
+            .join('')}
+        </div>
+      `
+        container.appendChild(div)
+      })
+
+      function submitTest() {
+        const resultBox = document.getElementById('resultBox')
+        const resultText = document.getElementById('resultText')
+        let total = 0
+        let answered = 0
+
+        questions.forEach((_, i) => {
+          const choice = document.querySelector(`input[name="q${i}"]:checked`)
+          if (choice) {
+            total += Number(choice.value)
+            answered++
+          }
+        })
+
+        if (answered < questions.length) {
+          alert('请答完所有题目再提交！')
+          return
+        }
+
+        // 临时结果展示逻辑
+        resultBox.style.display = 'block'
+        resultText.innerHTML = `你已完成测试，共 ${questions.length} 题。<br>总分：<strong>${total}</strong>。`
+        resultBox.scrollIntoView({ behavior: 'smooth' })
+      }
+    </script>
+  </body>
+</html>
